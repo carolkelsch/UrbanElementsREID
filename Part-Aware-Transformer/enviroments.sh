@@ -1,7 +1,7 @@
-pip install torch torchvision torchaudio
-pip install einops
-pip install timm
-pip install scikit-image
-pip install opencv-python
-pip install tensorboard
-pip install yacs
+pip3.10 install torch torchvision torchaudio
+pip3.10 install einops
+pip3.10 install timm
+pip3.10 install scikit-image
+pip3.10 install opencv-python
+pip3.10 install tensorboard
+pip3.10 install yacs

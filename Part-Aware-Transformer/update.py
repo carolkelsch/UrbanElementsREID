@@ -11,77 +11,45 @@ import numpy as np
 from utils.re_ranking import re_ranking
 import torch
 from torch.backends import cudnn
-
-
-<<<<<<< HEAD
-<<<<<<< HEAD
-def extract_features(model, dataloaders, num_query):
-=======
 def extract_feature(model, dataloaders, num_query):
->>>>>>> 06e0883 (flipreid)
-=======
-def extract_features(model, dataloaders, num_query):
->>>>>>> 5bd242b (results of flipreid on containers)
-    """
-    Extract features using FlipReID at the feature level.
-
-    Args:
-        model: The model used for feature extraction.
-        dataloaders: DataLoader providing batches of images.
-        num_query: Number of query images.
-
-    Returns:
-        qf: Query features.
-        gf: Gallery features.
-    """
     features = []
     count = 0
     img_path = []
 
     for data in dataloaders:
-        img, a, b, _, _ = data.values()
-        # Obtain values from dict data
+        img, a, b,_,_ = data.values()
+        #obtain values form dict data
         n, c, h, w = img.size()
         count += n
-
-        # Move images to GPU
-        input_img = img.cuda()
-
-        # Extract features for original and flipped images
-        outputs_orig = model.extract_features(input_img)
-        input_img_flip = torch.flip(input_img, dims=[3])  # Horizontal flip
-        outputs_flip = model.extract_features(input_img_flip)
-
-        # Average features from original and flipped images
-        ff = (outputs_orig.float() + outputs_flip.float()) / 2
-
-        # Normalize features
+        ff = torch.FloatTensor(n, 768).zero_().cuda()  # 2048 is pool5 of resnet
+        for i in range(2):
+            input_img = img.cuda()
+            outputs = model(input_img)
+            f = outputs.float()
+            ff = ff + f
         fnorm = torch.norm(ff, p=2, dim=1, keepdim=True)
         ff = ff.div(fnorm.expand_as(ff))
-
         features.append(ff)
-
-    # Concatenate all features
     features = torch.cat(features, 0)
 
-    # Separate query and gallery features
+    # query
     qf = features[:num_query]
+    # gallery
     gf = features[num_query:]
     return qf, gf
-
-
 if __name__ == "__main__":
     parser = argparse.ArgumentParser(description="ReID Training")
     parser.add_argument(
         "--config_file", default="./config/PAT.yml", help="path to config file", type=str
     )
-    parser.add_argument(
-        "opts", help="Modify config options using the command-line", default=None, nargs=argparse.REMAINDER
-    )
+    parser.add_argument("opts", help="Modify config options using the command-line", default=None,
+                        nargs=argparse.REMAINDER)
     parser.add_argument(
         "--track", default="./config/PAT.yml", help="path to config file", type=str
     )
     args = parser.parse_args()
+
+
 
     if args.config_file != "":
         cfg.merge_from_file(args.config_file)
@@ -104,7 +72,7 @@ if __name__ == "__main__":
 
     os.environ['CUDA_VISIBLE_DEVICES'] = cfg.MODEL.DEVICE_ID
 
-    model = make_model(cfg, cfg.MODEL.NAME, 0, 0, 0)
+    model = make_model(cfg, cfg.MODEL.NAME, 0,0,0)
     model.load_param(cfg.TEST.WEIGHT)
 
     for testname in cfg.DATASETS.TEST:
@@ -114,24 +82,24 @@ if __name__ == "__main__":
         else:
             do_inf(cfg, model, val_loader, num_query)
     with torch.no_grad():
-        qf, gf = extract_features(model, val_loader, num_query)
+        qf, gf = extract_feature(model, val_loader, num_query)
 
-    # Save features
-    qf = qf.cpu().numpy()
-    gf = gf.cpu().numpy()
+    # save feature
+    qf=qf.cpu().numpy()
+    gf=gf.cpu().numpy()
     np.save("./qf.npy", qf)
     np.save("./gf.npy", gf)
 
-    # Compute distances
+    #inference(cfg, model, val_loader, num_query)
     q_g_dist = np.dot(qf, np.transpose(gf))
     q_q_dist = np.dot(qf, np.transpose(qf))
     g_g_dist = np.dot(gf, np.transpose(gf))
 
-    # Re-ranking
     re_rank_dist = re_ranking(q_g_dist, q_q_dist, g_g_dist)
 
-    # Sort and save results
     indices = np.argsort(re_rank_dist, axis=1)[:, :100]
+    #indices = np.argsort(re_rank_dist, axis=1)[:, :]
+
     m, n = indices.shape
     print('m: {}  n: {}'.format(m, n))
     with open(args.track, 'wb') as f_w:

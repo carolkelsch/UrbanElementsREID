@@ -241,15 +241,8 @@ def do_inference(cfg,
         # domains = informations['others']['domains']
         with torch.no_grad():
             img = img.to(device)
-
-            # FlipReID logic: Extract features for original and flipped images
-            feat_orig = model(img)
-            img_flip = torch.flip(img, dims=[3])  # Horizontal flip
-            feat_flip = model(img_flip)
-
-            # Average the features
-            feat = (feat_orig + feat_flip) / 2
-
+            # camids = camids.to(device)
+            feat = model(img)
             evaluator.update((feat, pid, camids))
             img_path_list.extend(imgpath)
 

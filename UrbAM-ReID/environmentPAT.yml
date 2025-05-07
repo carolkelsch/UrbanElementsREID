@@ -84,9 +84,9 @@ dependencies:
     - tensorboard-data-server==0.7.2
     - tifffile==2024.2.12
     - timm==0.9.16
-    - torch==2.2.1+cu118
-    - torchaudio==2.2.1+cu118
-    - torchvision==0.17.1+cu118
+    - torch==2.2.1
+    - torchaudio==2.2.1
+    - torchvision==0.17.1
     - tqdm==4.66.2
     - triton==2.2.0
     - typing-extensions==4.11.0

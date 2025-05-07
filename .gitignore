@@ -172,3 +172,9 @@ cython_debug/
 
 # PyPI configuration file
 .pypirc
+
+# output files
+Challenge/Logs/
+
+# weights files
+*.pth

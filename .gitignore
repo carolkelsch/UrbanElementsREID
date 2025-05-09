@@ -172,3 +172,12 @@ cython_debug/
 
 # PyPI configuration file
 .pypirc
+
+# output files
+Challenge/Logs/
+
+# kaggle dataset folder
+UrbAM-ReID/Data/Kaggle/
+
+# weights files
+*.pth

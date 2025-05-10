@@ -1,9 +1,8 @@
 MODEL:
   PRETRAIN_CHOICE: 'imagenet'
   #PRETRAIN_PATH: "../../.cache/torch/hub/checkpoints" # root of pretrain path
-  #PRETRAIN_PATH: "./" # 
+  #PRETRAIN_PATH: "./" #test 
   PRETRAIN_PATH: "/media/DiscoLocal/IPCV/Carolina/UrbanElementsREID/Challenge/"
-  METRIC_LOSS_TYPE: 'triplet'
   IF_LABELSMOOTH: 'on'
   IF_WITH_CENTER: 'no'
   NAME: 'part_attention_vit'
@@ -25,9 +24,9 @@ INPUT:
 
 DATASETS:
   TRAIN: ('UAM',)
-  TEST: ('UAM_test',)
+  TEST: ('UAM',)
   #ROOT_DIR: ('../../data') # root of datasets
-  ROOT_DIR: '/media/DiscoLocal/IPCV/Carolina/ICIP_UrbAM-ReID/splits/Containers/containers1'
+  ROOT_DIR: '/media/DiscoLocal/IPCV/Carolina/UrbAM-ReID_classes/rubishbinss/'
 
 DATALOADER:
   SAMPLER: 'softmax_triplet'
@@ -53,10 +52,10 @@ TEST:
   EVAL: True
   IMS_PER_BATCH: 128
   RE_RANKING: False
-  WEIGHT: "/media/DiscoLocal/IPCV/Carolina/UAM/part_attention_vit_60.pth" #test 
+  WEIGHT: ''
   NECK_FEAT: 'before'
   FEAT_NORM: True
 
-LOG_ROOT: '/media/DiscoLocal/IPCV/Carolina/UrbanElementsREID/Challenge/Logs/' # root of log file
-TB_LOG_ROOT: '/media/DiscoLocal/IPCV/Carolina/UrbanElementsREID/Challenge/Logs/tb_log/'
+LOG_ROOT: '/media/DiscoLocal/IPCV/Carolina/UrbanElementsREID/Challenge/Lab_PC/LogsRubbishbins/' # root of log file
+TB_LOG_ROOT: '/media/DiscoLocal/IPCV/Carolina/UrbanElementsREID/Challenge/Lab_PC/LogsRubbishbins/tb_log/'
 LOG_NAME: 'UAM'

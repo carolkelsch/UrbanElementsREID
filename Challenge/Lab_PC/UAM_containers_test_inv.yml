@@ -58,6 +58,6 @@ TEST:
   NECK_FEAT: 'before'
   FEAT_NORM: True
 
-LOG_ROOT: '/media/DiscoLocal/IPCV/Carolina/UrbanElementsREID/Challenge/LogsInv/' # root of log file
-TB_LOG_ROOT: '/media/DiscoLocal/IPCV/Carolina/UrbanElementsREID/Challenge/LogsInv/tb_log/'
+LOG_ROOT: '/media/DiscoLocal/IPCV/Carolina/UrbanElementsREID/Challenge/Lab_PC/LogsInv/' # root of log file
+TB_LOG_ROOT: '/media/DiscoLocal/IPCV/Carolina/UrbanElementsREID/Challenge/Lab_PC/LogsInv/tb_log/'
 LOG_NAME: 'UAM'

@@ -17,8 +17,8 @@ INPUT:
   SIZE_TEST: [256,128]
   REA:
     ENABLED: False
-  PIXEL_MEAN: [0.5, 0.5, 0.5]
-  PIXEL_STD: [0.5, 0.5, 0.5]
+  PIXEL_MEAN: [0.485, 0.456, 0.406]
+  PIXEL_STD: [0.229, 0.224, 0.225]
   LGT: # Local Grayscale Transfomation
     DO_LGT: True
     PROB: 0.5
@@ -27,7 +27,7 @@ DATASETS:
   TRAIN: ('UAM',)
   TEST: ('UAM_test',)
   #ROOT_DIR: ('../../data') # root of datasets
-  ROOT_DIR: '/media/DiscoLocal/IPCV/Carolina/ICIP_UrbAM-ReID/splits/Containers/containers'
+  ROOT_DIR: '/media/DiscoLocal/IPCV/Carolina/unified'
 
 DATALOADER:
   SAMPLER: 'softmax_triplet'
@@ -53,10 +53,10 @@ TEST:
   EVAL: True
   IMS_PER_BATCH: 128
   RE_RANKING: False
-  WEIGHT: "/media/DiscoLocal/IPCV/Carolina/UAM/part_attention_vit_60.pth" #test 
+  WEIGHT: "/media/DiscoLocal/IPCV/Carolina/UrbanElementsREID/Challenge/Lab_PC/Logs_base_all/UAM/part_attention_vit_60.pth" #test 
   NECK_FEAT: 'before'
   FEAT_NORM: True
 
-LOG_ROOT: '/media/DiscoLocal/IPCV/Carolina/UrbanElementsREID/Challenge/Lab_PC/Logs/' # root of log file
-TB_LOG_ROOT: '/media/DiscoLocal/IPCV/Carolina/UrbanElementsREID/Challenge/Lab_PC/Logs/tb_log/'
+LOG_ROOT: '/media/DiscoLocal/IPCV/Carolina/UrbanElementsREID/Challenge/Lab_PC/Logs_base_all/' # root of log file
+TB_LOG_ROOT: '/media/DiscoLocal/IPCV/Carolina/UrbanElementsREID/Challenge/Lab_PC/Logs_base_all/tb_log/'
 LOG_NAME: 'UAM'

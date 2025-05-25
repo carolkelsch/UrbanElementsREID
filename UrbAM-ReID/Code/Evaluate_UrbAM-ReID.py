@@ -36,7 +36,7 @@ parser.add_argument(
 )
 args = parser.parse_args()
 
-xml_dir = os.path.join(args.path,'test_label.xml') 
+xml_dir = os.path.join(args.path,'test_label.xml')
 dir_path=  args.path
 dataset_galley=read_xml(xml_dir,dir_path)
 gallery_gt=np.array(dataset_galley)

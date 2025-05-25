@@ -1,0 +1,698 @@
+2025-05-10 17:25:36,809 PAT INFO: Saving model in the path :/media/DiscoLocal/IPCV/Carolina/UrbanElementsREID/Challenge/Lab_PC/LogsCrosswalks/UAM
+2025-05-10 17:25:36,809 PAT INFO: Namespace(config_file='UAM_crosswalks_all.yml', opts=[], local_rank=0)
+2025-05-10 17:25:36,809 PAT INFO: Loaded configuration file UAM_crosswalks_all.yml
+2025-05-10 17:25:36,809 PAT INFO: 
+MODEL:
+  PRETRAIN_CHOICE: 'imagenet'
+  #PRETRAIN_PATH: "../../.cache/torch/hub/checkpoints" # root of pretrain path
+  #PRETRAIN_PATH: "./" #test 
+  PRETRAIN_PATH: "/media/DiscoLocal/IPCV/Carolina/UrbanElementsREID/Challenge/"
+  IF_LABELSMOOTH: 'on'
+  IF_WITH_CENTER: 'no'
+  NAME: 'part_attention_vit'
+  NO_MARGIN: True
+  DEVICE_ID: ('0')
+  TRANSFORMER_TYPE: 'vit_base_patch16_224_TransReID'
+  STRIDE_SIZE: [16, 16]
+
+INPUT:
+  SIZE_TRAIN: [256,128]
+  SIZE_TEST: [256,128]
+  REA:
+    ENABLED: False
+  PIXEL_MEAN: [0.5, 0.5, 0.5]
+  PIXEL_STD: [0.5, 0.5, 0.5]
+  LGT: # Local Grayscale Transfomation
+    DO_LGT: True
+    PROB: 0.5
+
+DATASETS:
+  TRAIN: ('UAM',)
+  TEST: ('UAM',)
+  #ROOT_DIR: ('../../data') # root of datasets
+  ROOT_DIR: '/media/DiscoLocal/IPCV/Carolina/UrbAM-ReID_classes/crosswalks/'
+
+DATALOADER:
+  SAMPLER: 'softmax_triplet'
+  NUM_INSTANCE: 4
+  NUM_WORKERS: 8
+
+SOLVER:
+  OPTIMIZER_NAME: 'SGD'
+  MAX_EPOCHS: 60
+  BASE_LR: 0.001 # 0.0004 for msmt
+  IMS_PER_BATCH: 64
+  WARMUP_METHOD: 'linear'
+  LARGE_FC_LR: False
+  CHECKPOINT_PERIOD: 5
+  LOG_PERIOD: 60
+  EVAL_PERIOD: 1
+  WEIGHT_DECAY:  1e-4
+  WEIGHT_DECAY_BIAS: 1e-4
+  BIAS_LR_FACTOR: 2
+  SEED: 1234
+
+TEST:
+  EVAL: True
+  IMS_PER_BATCH: 128
+  RE_RANKING: False
+  WEIGHT: ''
+  NECK_FEAT: 'before'
+  FEAT_NORM: True
+
+LOG_ROOT: '/media/DiscoLocal/IPCV/Carolina/UrbanElementsREID/Challenge/Lab_PC/LogsCrosswalks/' # root of log file
+TB_LOG_ROOT: '/media/DiscoLocal/IPCV/Carolina/UrbanElementsREID/Challenge/Lab_PC/LogsCrosswalks/tb_log/'
+LOG_NAME: 'UAM'
+
+2025-05-10 17:25:36,810 PAT INFO: Running with config:
+DATALOADER:
+  CAMERA_TO_DOMAIN: False
+  DELETE_REM: False
+  DROP_LAST: False
+  INDIVIDUAL: False
+  NAIVE_WAY: True
+  NUM_INSTANCE: 4
+  NUM_WORKERS: 8
+  SAMPLER: softmax_triplet
+DATASETS:
+  COMBINEALL: False
+  ROOT_DIR: /media/DiscoLocal/IPCV/Carolina/UrbAM-ReID_classes/crosswalks/
+  TEST: ('UAM',)
+  TRAIN: ('UAM',)
+INPUT:
+  CJ:
+    BRIGHTNESS: 0.15
+    CONTRAST: 0.15
+    ENABLED: False
+    HUE: 0.1
+    PROB: 1.0
+    SATURATION: 0.1
+  DO_AUGMIX: False
+  DO_AUTOAUG: False
+  DO_FLIP: True
+  DO_PAD: True
+  FLIP_PROB: 0.5
+  LGT:
+    DO_LGT: True
+    PROB: 0.5
+  PADDING: 10
+  PADDING_MODE: constant
+  PIXEL_MEAN: [0.5, 0.5, 0.5]
+  PIXEL_STD: [0.5, 0.5, 0.5]
+  REA:
+    ENABLED: False
+    MEAN: [123.675, 116.28, 103.53]
+    PROB: 0.5
+  RPT:
+    ENABLED: False
+    PROB: 0.5
+  SIZE_TEST: [256, 128]
+  SIZE_TRAIN: [256, 128]
+LOG_NAME: UAM
+LOG_ROOT: /media/DiscoLocal/IPCV/Carolina/UrbanElementsREID/Challenge/Lab_PC/LogsCrosswalks/
+MODEL:
+  ATT_DROP_RATE: 0.0
+  CLUSTER_K: 10
+  COS_LAYER: False
+  DEVICE: cuda
+  DEVICE_ID: 0
+  DIST_TRAIN: False
+  DROP_OUT: 0.0
+  DROP_PATH: 0.1
+  FREEZE_PATCH_EMBED: True
+  ID_LOSS_TYPE: softmax
+  ID_LOSS_WEIGHT: 1.0
+  IF_LABELSMOOTH: on
+  IF_WITH_CENTER: no
+  LAST_STRIDE: 1
+  METRIC_LOSS_TYPE: triplet
+  NAME: part_attention_vit
+  NECK: bnneck
+  NO_MARGIN: True
+  PATCH_EMBED_TYPE: 
+  PC_LOSS: True
+  PC_LR: 1.0
+  PC_SCALE: 0.02
+  PRETRAIN_CHOICE: imagenet
+  PRETRAIN_PATH: /media/DiscoLocal/IPCV/Carolina/UrbanElementsREID/Challenge/
+  SOFT_LABEL: True
+  SOFT_LAMBDA: 0.5
+  SOFT_WEIGHT: 0.5
+  STRIDE_SIZE: [16, 16]
+  TRANSFORMER_TYPE: vit_base_patch16_224_TransReID
+  TRIPLET_LOSS_WEIGHT: 1.0
+SOLVER:
+  BASE_LR: 0.001
+  BIAS_LR_FACTOR: 2
+  CENTER_LOSS_WEIGHT: 0.0005
+  CENTER_LR: 0.5
+  CHECKPOINT_PERIOD: 5
+  COSINE_MARGIN: 0.5
+  COSINE_SCALE: 30
+  EVAL_PERIOD: 1
+  GAMMA: 0.1
+  IMS_PER_BATCH: 64
+  LARGE_FC_LR: False
+  LOG_PERIOD: 60
+  MARGIN: 0.3
+  MAX_EPOCHS: 60
+  MOMENTUM: 0.9
+  OPTIMIZER_NAME: SGD
+  SEED: 1234
+  STEPS: (40, 70)
+  WARMUP_EPOCHS: 5
+  WARMUP_FACTOR: 0.01
+  WARMUP_METHOD: linear
+  WEIGHT_DECAY: 0.0001
+  WEIGHT_DECAY_BIAS: 0.0001
+TB_LOG_ROOT: /media/DiscoLocal/IPCV/Carolina/UrbanElementsREID/Challenge/Lab_PC/LogsCrosswalks/tb_log/
+TEST:
+  DIST_MAT: dist_mat.npy
+  EVAL: True
+  FEAT_NORM: True
+  IMS_PER_BATCH: 128
+  NECK_FEAT: before
+  RE_RANKING: False
+  WEIGHT: 
+2025-05-10 17:25:36,821 PAT INFO: => Loaded UAM
+2025-05-10 17:25:36,821 PAT INFO:   ----------------------------------------
+2025-05-10 17:25:36,821 PAT INFO:   subset   | # ids | # images | # cameras
+2025-05-10 17:25:36,821 PAT INFO:   ----------------------------------------
+2025-05-10 17:25:36,821 PAT INFO:   train    |    99 |     1329 |         4
+2025-05-10 17:25:36,821 PAT INFO:   ----------------------------------------
+2025-05-10 17:25:36,833 PAT INFO: => Loaded UAM
+2025-05-10 17:25:36,833 PAT INFO:   ----------------------------------------
+2025-05-10 17:25:36,833 PAT INFO:   subset   | # ids | # images | # cameras
+2025-05-10 17:25:36,833 PAT INFO:   ----------------------------------------
+2025-05-10 17:25:36,833 PAT INFO:   query    |    99 |     1329 |         4
+2025-05-10 17:25:36,833 PAT INFO:   gallery  |    99 |     1329 |         4
+2025-05-10 17:25:36,834 PAT INFO:   ----------------------------------------
+2025-05-10 17:25:37,911 PAT.train INFO: Number of parameter: 86.60M
+2025-05-10 17:25:38,198 PAT.train INFO: start training
+2025-05-10 17:25:47,472 PAT.train INFO: Epoch 1 done. Time per batch: 0.283[s] Speed: 226.3[samples/s]
+2025-05-10 17:25:47,472 PAT.test INFO: Enter inferencing
+2025-05-10 17:25:55,507 PAT.test INFO: Validation Results 
+2025-05-10 17:25:55,507 PAT.test INFO: mAP: 12.9%
+2025-05-10 17:25:55,507 PAT.test INFO: CMC curve, Rank-1  :39.7%
+2025-05-10 17:25:55,507 PAT.test INFO: CMC curve, Rank-5  :58.9%
+2025-05-10 17:25:55,507 PAT.test INFO: CMC curve, Rank-10 :66.4%
+2025-05-10 17:25:55,507 PAT.test INFO: total inference time: 8.03
+2025-05-10 17:26:00,190 PAT.train INFO: Epoch 2 done. Time per batch: 0.259[s] Speed: 246.8[samples/s]
+2025-05-10 17:26:00,190 PAT.test INFO: Enter inferencing
+2025-05-10 17:26:08,050 PAT.test INFO: Validation Results 
+2025-05-10 17:26:08,050 PAT.test INFO: mAP: 16.7%
+2025-05-10 17:26:08,050 PAT.test INFO: CMC curve, Rank-1  :47.0%
+2025-05-10 17:26:08,050 PAT.test INFO: CMC curve, Rank-5  :66.1%
+2025-05-10 17:26:08,050 PAT.test INFO: CMC curve, Rank-10 :72.1%
+2025-05-10 17:26:08,050 PAT.test INFO: total inference time: 7.86
+2025-05-10 17:26:12,899 PAT.train INFO: Epoch 3 done. Time per batch: 0.264[s] Speed: 242.4[samples/s]
+2025-05-10 17:26:12,899 PAT.test INFO: Enter inferencing
+2025-05-10 17:26:20,858 PAT.test INFO: Validation Results 
+2025-05-10 17:26:20,858 PAT.test INFO: mAP: 19.7%
+2025-05-10 17:26:20,858 PAT.test INFO: CMC curve, Rank-1  :52.5%
+2025-05-10 17:26:20,858 PAT.test INFO: CMC curve, Rank-5  :69.5%
+2025-05-10 17:26:20,858 PAT.test INFO: CMC curve, Rank-10 :75.0%
+2025-05-10 17:26:20,858 PAT.test INFO: total inference time: 7.96
+2025-05-10 17:26:25,368 PAT.train INFO: Epoch 4 done. Time per batch: 0.260[s] Speed: 245.9[samples/s]
+2025-05-10 17:26:25,368 PAT.test INFO: Enter inferencing
+2025-05-10 17:26:33,284 PAT.test INFO: Validation Results 
+2025-05-10 17:26:33,284 PAT.test INFO: mAP: 18.6%
+2025-05-10 17:26:33,284 PAT.test INFO: CMC curve, Rank-1  :50.3%
+2025-05-10 17:26:33,284 PAT.test INFO: CMC curve, Rank-5  :67.3%
+2025-05-10 17:26:33,284 PAT.test INFO: CMC curve, Rank-10 :74.3%
+2025-05-10 17:26:33,284 PAT.test INFO: total inference time: 7.91
+2025-05-10 17:26:37,889 PAT.train INFO: Epoch 5 done. Time per batch: 0.266[s] Speed: 240.9[samples/s]
+2025-05-10 17:26:37,890 PAT.test INFO: Enter inferencing
+2025-05-10 17:26:45,861 PAT.test INFO: Validation Results 
+2025-05-10 17:26:45,861 PAT.test INFO: mAP: 21.4%
+2025-05-10 17:26:45,861 PAT.test INFO: CMC curve, Rank-1  :55.6%
+2025-05-10 17:26:45,861 PAT.test INFO: CMC curve, Rank-5  :72.4%
+2025-05-10 17:26:45,861 PAT.test INFO: CMC curve, Rank-10 :77.4%
+2025-05-10 17:26:45,861 PAT.test INFO: total inference time: 7.97
+2025-05-10 17:26:45,865 PAT.train INFO: =====best epoch: 5=====
+2025-05-10 17:26:50,726 PAT.train INFO: Epoch 6 done. Time per batch: 0.264[s] Speed: 242.7[samples/s]
+2025-05-10 17:26:50,727 PAT.test INFO: Enter inferencing
+2025-05-10 17:26:58,653 PAT.test INFO: Validation Results 
+2025-05-10 17:26:58,653 PAT.test INFO: mAP: 21.7%
+2025-05-10 17:26:58,653 PAT.test INFO: CMC curve, Rank-1  :53.3%
+2025-05-10 17:26:58,653 PAT.test INFO: CMC curve, Rank-5  :71.4%
+2025-05-10 17:26:58,653 PAT.test INFO: CMC curve, Rank-10 :78.0%
+2025-05-10 17:26:58,653 PAT.test INFO: total inference time: 7.92
+2025-05-10 17:27:03,363 PAT.train INFO: Epoch 7 done. Time per batch: 0.272[s] Speed: 235.7[samples/s]
+2025-05-10 17:27:03,363 PAT.test INFO: Enter inferencing
+2025-05-10 17:27:11,665 PAT.test INFO: Validation Results 
+2025-05-10 17:27:11,665 PAT.test INFO: mAP: 21.9%
+2025-05-10 17:27:11,665 PAT.test INFO: CMC curve, Rank-1  :54.6%
+2025-05-10 17:27:11,665 PAT.test INFO: CMC curve, Rank-5  :71.5%
+2025-05-10 17:27:11,665 PAT.test INFO: CMC curve, Rank-10 :78.1%
+2025-05-10 17:27:11,665 PAT.test INFO: total inference time: 8.30
+2025-05-10 17:27:16,354 PAT.train INFO: Epoch 8 done. Time per batch: 0.271[s] Speed: 236.5[samples/s]
+2025-05-10 17:27:16,355 PAT.test INFO: Enter inferencing
+2025-05-10 17:27:24,526 PAT.test INFO: Validation Results 
+2025-05-10 17:27:24,526 PAT.test INFO: mAP: 23.6%
+2025-05-10 17:27:24,526 PAT.test INFO: CMC curve, Rank-1  :56.1%
+2025-05-10 17:27:24,526 PAT.test INFO: CMC curve, Rank-5  :70.7%
+2025-05-10 17:27:24,526 PAT.test INFO: CMC curve, Rank-10 :77.5%
+2025-05-10 17:27:24,526 PAT.test INFO: total inference time: 8.17
+2025-05-10 17:27:29,072 PAT.train INFO: Epoch 9 done. Time per batch: 0.262[s] Speed: 244.4[samples/s]
+2025-05-10 17:27:29,072 PAT.test INFO: Enter inferencing
+2025-05-10 17:27:37,192 PAT.test INFO: Validation Results 
+2025-05-10 17:27:37,192 PAT.test INFO: mAP: 24.3%
+2025-05-10 17:27:37,192 PAT.test INFO: CMC curve, Rank-1  :57.3%
+2025-05-10 17:27:37,192 PAT.test INFO: CMC curve, Rank-5  :72.6%
+2025-05-10 17:27:37,192 PAT.test INFO: CMC curve, Rank-10 :78.5%
+2025-05-10 17:27:37,193 PAT.test INFO: total inference time: 8.12
+2025-05-10 17:27:41,903 PAT.train INFO: Epoch 10 done. Time per batch: 0.257[s] Speed: 249.3[samples/s]
+2025-05-10 17:27:41,903 PAT.test INFO: Enter inferencing
+2025-05-10 17:27:49,864 PAT.test INFO: Validation Results 
+2025-05-10 17:27:49,864 PAT.test INFO: mAP: 27.3%
+2025-05-10 17:27:49,864 PAT.test INFO: CMC curve, Rank-1  :60.4%
+2025-05-10 17:27:49,864 PAT.test INFO: CMC curve, Rank-5  :76.3%
+2025-05-10 17:27:49,864 PAT.test INFO: CMC curve, Rank-10 :81.3%
+2025-05-10 17:27:49,864 PAT.test INFO: total inference time: 7.96
+2025-05-10 17:27:49,867 PAT.train INFO: =====best epoch: 10=====
+2025-05-10 17:27:54,926 PAT.train INFO: Epoch 11 done. Time per batch: 0.274[s] Speed: 233.9[samples/s]
+2025-05-10 17:27:54,926 PAT.test INFO: Enter inferencing
+2025-05-10 17:28:02,960 PAT.test INFO: Validation Results 
+2025-05-10 17:28:02,960 PAT.test INFO: mAP: 28.5%
+2025-05-10 17:28:02,960 PAT.test INFO: CMC curve, Rank-1  :61.7%
+2025-05-10 17:28:02,960 PAT.test INFO: CMC curve, Rank-5  :77.7%
+2025-05-10 17:28:02,960 PAT.test INFO: CMC curve, Rank-10 :82.9%
+2025-05-10 17:28:02,960 PAT.test INFO: total inference time: 8.03
+2025-05-10 17:28:07,956 PAT.train INFO: Epoch 12 done. Time per batch: 0.273[s] Speed: 234.7[samples/s]
+2025-05-10 17:28:07,956 PAT.test INFO: Enter inferencing
+2025-05-10 17:28:16,288 PAT.test INFO: Validation Results 
+2025-05-10 17:28:16,288 PAT.test INFO: mAP: 29.2%
+2025-05-10 17:28:16,288 PAT.test INFO: CMC curve, Rank-1  :63.4%
+2025-05-10 17:28:16,288 PAT.test INFO: CMC curve, Rank-5  :77.6%
+2025-05-10 17:28:16,288 PAT.test INFO: CMC curve, Rank-10 :82.2%
+2025-05-10 17:28:16,288 PAT.test INFO: total inference time: 8.33
+2025-05-10 17:28:21,120 PAT.train INFO: Epoch 13 done. Time per batch: 0.263[s] Speed: 243.0[samples/s]
+2025-05-10 17:28:21,120 PAT.test INFO: Enter inferencing
+2025-05-10 17:28:29,340 PAT.test INFO: Validation Results 
+2025-05-10 17:28:29,340 PAT.test INFO: mAP: 31.6%
+2025-05-10 17:28:29,341 PAT.test INFO: CMC curve, Rank-1  :66.0%
+2025-05-10 17:28:29,341 PAT.test INFO: CMC curve, Rank-5  :79.5%
+2025-05-10 17:28:29,341 PAT.test INFO: CMC curve, Rank-10 :84.1%
+2025-05-10 17:28:29,341 PAT.test INFO: total inference time: 8.22
+2025-05-10 17:28:34,106 PAT.train INFO: Epoch 14 done. Time per batch: 0.275[s] Speed: 232.6[samples/s]
+2025-05-10 17:28:34,106 PAT.test INFO: Enter inferencing
+2025-05-10 17:28:42,215 PAT.test INFO: Validation Results 
+2025-05-10 17:28:42,215 PAT.test INFO: mAP: 32.4%
+2025-05-10 17:28:42,215 PAT.test INFO: CMC curve, Rank-1  :65.6%
+2025-05-10 17:28:42,215 PAT.test INFO: CMC curve, Rank-5  :80.1%
+2025-05-10 17:28:42,215 PAT.test INFO: CMC curve, Rank-10 :84.5%
+2025-05-10 17:28:42,215 PAT.test INFO: total inference time: 8.11
+2025-05-10 17:28:46,886 PAT.train INFO: Epoch 15 done. Time per batch: 0.269[s] Speed: 237.5[samples/s]
+2025-05-10 17:28:46,886 PAT.test INFO: Enter inferencing
+2025-05-10 17:28:54,961 PAT.test INFO: Validation Results 
+2025-05-10 17:28:54,961 PAT.test INFO: mAP: 34.0%
+2025-05-10 17:28:54,961 PAT.test INFO: CMC curve, Rank-1  :66.9%
+2025-05-10 17:28:54,961 PAT.test INFO: CMC curve, Rank-5  :80.7%
+2025-05-10 17:28:54,961 PAT.test INFO: CMC curve, Rank-10 :84.7%
+2025-05-10 17:28:54,961 PAT.test INFO: total inference time: 8.07
+2025-05-10 17:28:54,964 PAT.train INFO: =====best epoch: 15=====
+2025-05-10 17:28:59,839 PAT.train INFO: Epoch 16 done. Time per batch: 0.265[s] Speed: 241.9[samples/s]
+2025-05-10 17:28:59,839 PAT.test INFO: Enter inferencing
+2025-05-10 17:29:08,036 PAT.test INFO: Validation Results 
+2025-05-10 17:29:08,036 PAT.test INFO: mAP: 35.5%
+2025-05-10 17:29:08,036 PAT.test INFO: CMC curve, Rank-1  :66.7%
+2025-05-10 17:29:08,036 PAT.test INFO: CMC curve, Rank-5  :81.8%
+2025-05-10 17:29:08,036 PAT.test INFO: CMC curve, Rank-10 :85.7%
+2025-05-10 17:29:08,036 PAT.test INFO: total inference time: 8.19
+2025-05-10 17:29:12,643 PAT.train INFO: Epoch 17 done. Time per batch: 0.266[s] Speed: 240.8[samples/s]
+2025-05-10 17:29:12,643 PAT.test INFO: Enter inferencing
+2025-05-10 17:29:21,023 PAT.test INFO: Validation Results 
+2025-05-10 17:29:21,023 PAT.test INFO: mAP: 36.8%
+2025-05-10 17:29:21,023 PAT.test INFO: CMC curve, Rank-1  :67.0%
+2025-05-10 17:29:21,023 PAT.test INFO: CMC curve, Rank-5  :81.7%
+2025-05-10 17:29:21,023 PAT.test INFO: CMC curve, Rank-10 :86.3%
+2025-05-10 17:29:21,023 PAT.test INFO: total inference time: 8.38
+2025-05-10 17:29:25,678 PAT.train INFO: Epoch 18 done. Time per batch: 0.269[s] Speed: 238.2[samples/s]
+2025-05-10 17:29:25,678 PAT.test INFO: Enter inferencing
+2025-05-10 17:29:33,618 PAT.test INFO: Validation Results 
+2025-05-10 17:29:33,618 PAT.test INFO: mAP: 38.1%
+2025-05-10 17:29:33,618 PAT.test INFO: CMC curve, Rank-1  :68.2%
+2025-05-10 17:29:33,618 PAT.test INFO: CMC curve, Rank-5  :82.2%
+2025-05-10 17:29:33,618 PAT.test INFO: CMC curve, Rank-10 :87.5%
+2025-05-10 17:29:33,618 PAT.test INFO: total inference time: 7.94
+2025-05-10 17:29:38,115 PAT.train INFO: Epoch 19 done. Time per batch: 0.259[s] Speed: 246.8[samples/s]
+2025-05-10 17:29:38,115 PAT.test INFO: Enter inferencing
+2025-05-10 17:29:46,200 PAT.test INFO: Validation Results 
+2025-05-10 17:29:46,200 PAT.test INFO: mAP: 39.4%
+2025-05-10 17:29:46,200 PAT.test INFO: CMC curve, Rank-1  :69.0%
+2025-05-10 17:29:46,200 PAT.test INFO: CMC curve, Rank-5  :82.1%
+2025-05-10 17:29:46,200 PAT.test INFO: CMC curve, Rank-10 :87.3%
+2025-05-10 17:29:46,200 PAT.test INFO: total inference time: 8.08
+2025-05-10 17:29:50,714 PAT.train INFO: Epoch 20 done. Time per batch: 0.260[s] Speed: 246.0[samples/s]
+2025-05-10 17:29:50,714 PAT.test INFO: Enter inferencing
+2025-05-10 17:29:58,788 PAT.test INFO: Validation Results 
+2025-05-10 17:29:58,789 PAT.test INFO: mAP: 41.3%
+2025-05-10 17:29:58,789 PAT.test INFO: CMC curve, Rank-1  :70.8%
+2025-05-10 17:29:58,789 PAT.test INFO: CMC curve, Rank-5  :83.8%
+2025-05-10 17:29:58,789 PAT.test INFO: CMC curve, Rank-10 :87.7%
+2025-05-10 17:29:58,789 PAT.test INFO: total inference time: 8.07
+2025-05-10 17:29:58,792 PAT.train INFO: =====best epoch: 20=====
+2025-05-10 17:30:03,658 PAT.train INFO: Epoch 21 done. Time per batch: 0.265[s] Speed: 241.6[samples/s]
+2025-05-10 17:30:03,658 PAT.test INFO: Enter inferencing
+2025-05-10 17:30:11,748 PAT.test INFO: Validation Results 
+2025-05-10 17:30:11,748 PAT.test INFO: mAP: 42.8%
+2025-05-10 17:30:11,748 PAT.test INFO: CMC curve, Rank-1  :70.6%
+2025-05-10 17:30:11,748 PAT.test INFO: CMC curve, Rank-5  :83.9%
+2025-05-10 17:30:11,748 PAT.test INFO: CMC curve, Rank-10 :88.4%
+2025-05-10 17:30:11,748 PAT.test INFO: total inference time: 8.09
+2025-05-10 17:30:16,256 PAT.train INFO: Epoch 22 done. Time per batch: 0.260[s] Speed: 246.1[samples/s]
+2025-05-10 17:30:16,257 PAT.test INFO: Enter inferencing
+2025-05-10 17:30:24,386 PAT.test INFO: Validation Results 
+2025-05-10 17:30:24,386 PAT.test INFO: mAP: 44.0%
+2025-05-10 17:30:24,386 PAT.test INFO: CMC curve, Rank-1  :70.4%
+2025-05-10 17:30:24,386 PAT.test INFO: CMC curve, Rank-5  :84.5%
+2025-05-10 17:30:24,387 PAT.test INFO: CMC curve, Rank-10 :88.6%
+2025-05-10 17:30:24,387 PAT.test INFO: total inference time: 8.13
+2025-05-10 17:30:28,950 PAT.train INFO: Epoch 23 done. Time per batch: 0.263[s] Speed: 243.2[samples/s]
+2025-05-10 17:30:28,950 PAT.test INFO: Enter inferencing
+2025-05-10 17:30:36,915 PAT.test INFO: Validation Results 
+2025-05-10 17:30:36,915 PAT.test INFO: mAP: 45.2%
+2025-05-10 17:30:36,915 PAT.test INFO: CMC curve, Rank-1  :71.0%
+2025-05-10 17:30:36,915 PAT.test INFO: CMC curve, Rank-5  :84.7%
+2025-05-10 17:30:36,915 PAT.test INFO: CMC curve, Rank-10 :88.8%
+2025-05-10 17:30:36,915 PAT.test INFO: total inference time: 7.96
+2025-05-10 17:30:41,447 PAT.train INFO: Epoch 24 done. Time per batch: 0.261[s] Speed: 244.8[samples/s]
+2025-05-10 17:30:41,448 PAT.test INFO: Enter inferencing
+2025-05-10 17:30:49,490 PAT.test INFO: Validation Results 
+2025-05-10 17:30:49,490 PAT.test INFO: mAP: 46.3%
+2025-05-10 17:30:49,490 PAT.test INFO: CMC curve, Rank-1  :71.1%
+2025-05-10 17:30:49,490 PAT.test INFO: CMC curve, Rank-5  :84.7%
+2025-05-10 17:30:49,490 PAT.test INFO: CMC curve, Rank-10 :90.2%
+2025-05-10 17:30:49,490 PAT.test INFO: total inference time: 8.04
+2025-05-10 17:30:54,017 PAT.train INFO: Epoch 25 done. Time per batch: 0.261[s] Speed: 245.1[samples/s]
+2025-05-10 17:30:54,017 PAT.test INFO: Enter inferencing
+2025-05-10 17:31:02,105 PAT.test INFO: Validation Results 
+2025-05-10 17:31:02,105 PAT.test INFO: mAP: 48.0%
+2025-05-10 17:31:02,105 PAT.test INFO: CMC curve, Rank-1  :71.6%
+2025-05-10 17:31:02,105 PAT.test INFO: CMC curve, Rank-5  :85.2%
+2025-05-10 17:31:02,105 PAT.test INFO: CMC curve, Rank-10 :91.0%
+2025-05-10 17:31:02,105 PAT.test INFO: total inference time: 8.09
+2025-05-10 17:31:02,108 PAT.train INFO: =====best epoch: 25=====
+2025-05-10 17:31:06,888 PAT.train INFO: Epoch 26 done. Time per batch: 0.259[s] Speed: 247.0[samples/s]
+2025-05-10 17:31:06,888 PAT.test INFO: Enter inferencing
+2025-05-10 17:31:14,886 PAT.test INFO: Validation Results 
+2025-05-10 17:31:14,886 PAT.test INFO: mAP: 49.4%
+2025-05-10 17:31:14,886 PAT.test INFO: CMC curve, Rank-1  :72.7%
+2025-05-10 17:31:14,886 PAT.test INFO: CMC curve, Rank-5  :86.7%
+2025-05-10 17:31:14,886 PAT.test INFO: CMC curve, Rank-10 :90.8%
+2025-05-10 17:31:14,886 PAT.test INFO: total inference time: 8.00
+2025-05-10 17:31:19,597 PAT.train INFO: Epoch 27 done. Time per batch: 0.272[s] Speed: 235.5[samples/s]
+2025-05-10 17:31:19,597 PAT.test INFO: Enter inferencing
+2025-05-10 17:31:27,739 PAT.test INFO: Validation Results 
+2025-05-10 17:31:27,739 PAT.test INFO: mAP: 50.2%
+2025-05-10 17:31:27,739 PAT.test INFO: CMC curve, Rank-1  :73.4%
+2025-05-10 17:31:27,739 PAT.test INFO: CMC curve, Rank-5  :86.3%
+2025-05-10 17:31:27,739 PAT.test INFO: CMC curve, Rank-10 :91.0%
+2025-05-10 17:31:27,739 PAT.test INFO: total inference time: 8.14
+2025-05-10 17:31:32,346 PAT.train INFO: Epoch 28 done. Time per batch: 0.266[s] Speed: 240.8[samples/s]
+2025-05-10 17:31:32,346 PAT.test INFO: Enter inferencing
+2025-05-10 17:31:40,398 PAT.test INFO: Validation Results 
+2025-05-10 17:31:40,398 PAT.test INFO: mAP: 52.1%
+2025-05-10 17:31:40,398 PAT.test INFO: CMC curve, Rank-1  :73.4%
+2025-05-10 17:31:40,399 PAT.test INFO: CMC curve, Rank-5  :87.6%
+2025-05-10 17:31:40,399 PAT.test INFO: CMC curve, Rank-10 :91.2%
+2025-05-10 17:31:40,399 PAT.test INFO: total inference time: 8.05
+2025-05-10 17:31:44,992 PAT.train INFO: Epoch 29 done. Time per batch: 0.265[s] Speed: 241.4[samples/s]
+2025-05-10 17:31:44,993 PAT.test INFO: Enter inferencing
+2025-05-10 17:31:53,043 PAT.test INFO: Validation Results 
+2025-05-10 17:31:53,043 PAT.test INFO: mAP: 52.9%
+2025-05-10 17:31:53,043 PAT.test INFO: CMC curve, Rank-1  :73.4%
+2025-05-10 17:31:53,043 PAT.test INFO: CMC curve, Rank-5  :87.4%
+2025-05-10 17:31:53,043 PAT.test INFO: CMC curve, Rank-10 :91.4%
+2025-05-10 17:31:53,043 PAT.test INFO: total inference time: 8.05
+2025-05-10 17:31:57,720 PAT.train INFO: Epoch 30 done. Time per batch: 0.270[s] Speed: 237.2[samples/s]
+2025-05-10 17:31:57,720 PAT.test INFO: Enter inferencing
+2025-05-10 17:32:05,910 PAT.test INFO: Validation Results 
+2025-05-10 17:32:05,910 PAT.test INFO: mAP: 53.9%
+2025-05-10 17:32:05,910 PAT.test INFO: CMC curve, Rank-1  :74.2%
+2025-05-10 17:32:05,910 PAT.test INFO: CMC curve, Rank-5  :88.1%
+2025-05-10 17:32:05,910 PAT.test INFO: CMC curve, Rank-10 :92.1%
+2025-05-10 17:32:05,910 PAT.test INFO: total inference time: 8.19
+2025-05-10 17:32:05,913 PAT.train INFO: =====best epoch: 30=====
+2025-05-10 17:32:11,107 PAT.train INFO: Epoch 31 done. Time per batch: 0.269[s] Speed: 238.2[samples/s]
+2025-05-10 17:32:11,107 PAT.test INFO: Enter inferencing
+2025-05-10 17:32:19,204 PAT.test INFO: Validation Results 
+2025-05-10 17:32:19,205 PAT.test INFO: mAP: 55.8%
+2025-05-10 17:32:19,205 PAT.test INFO: CMC curve, Rank-1  :74.7%
+2025-05-10 17:32:19,205 PAT.test INFO: CMC curve, Rank-5  :88.3%
+2025-05-10 17:32:19,205 PAT.test INFO: CMC curve, Rank-10 :92.0%
+2025-05-10 17:32:19,205 PAT.test INFO: total inference time: 8.10
+2025-05-10 17:32:24,011 PAT.train INFO: Epoch 32 done. Time per batch: 0.277[s] Speed: 230.7[samples/s]
+2025-05-10 17:32:24,011 PAT.test INFO: Enter inferencing
+2025-05-10 17:32:31,999 PAT.test INFO: Validation Results 
+2025-05-10 17:32:31,999 PAT.test INFO: mAP: 56.9%
+2025-05-10 17:32:31,999 PAT.test INFO: CMC curve, Rank-1  :75.5%
+2025-05-10 17:32:31,999 PAT.test INFO: CMC curve, Rank-5  :88.6%
+2025-05-10 17:32:31,999 PAT.test INFO: CMC curve, Rank-10 :93.0%
+2025-05-10 17:32:31,999 PAT.test INFO: total inference time: 7.99
+2025-05-10 17:32:36,574 PAT.train INFO: Epoch 33 done. Time per batch: 0.264[s] Speed: 242.6[samples/s]
+2025-05-10 17:32:36,574 PAT.test INFO: Enter inferencing
+2025-05-10 17:32:44,893 PAT.test INFO: Validation Results 
+2025-05-10 17:32:44,893 PAT.test INFO: mAP: 57.3%
+2025-05-10 17:32:44,893 PAT.test INFO: CMC curve, Rank-1  :74.9%
+2025-05-10 17:32:44,893 PAT.test INFO: CMC curve, Rank-5  :88.9%
+2025-05-10 17:32:44,893 PAT.test INFO: CMC curve, Rank-10 :93.2%
+2025-05-10 17:32:44,893 PAT.test INFO: total inference time: 8.32
+2025-05-10 17:32:49,435 PAT.train INFO: Epoch 34 done. Time per batch: 0.262[s] Speed: 244.4[samples/s]
+2025-05-10 17:32:49,435 PAT.test INFO: Enter inferencing
+2025-05-10 17:32:57,566 PAT.test INFO: Validation Results 
+2025-05-10 17:32:57,566 PAT.test INFO: mAP: 59.2%
+2025-05-10 17:32:57,566 PAT.test INFO: CMC curve, Rank-1  :76.0%
+2025-05-10 17:32:57,566 PAT.test INFO: CMC curve, Rank-5  :90.2%
+2025-05-10 17:32:57,567 PAT.test INFO: CMC curve, Rank-10 :93.8%
+2025-05-10 17:32:57,567 PAT.test INFO: total inference time: 8.13
+2025-05-10 17:33:02,049 PAT.train INFO: Epoch 35 done. Time per batch: 0.259[s] Speed: 247.5[samples/s]
+2025-05-10 17:33:02,049 PAT.test INFO: Enter inferencing
+2025-05-10 17:33:10,024 PAT.test INFO: Validation Results 
+2025-05-10 17:33:10,024 PAT.test INFO: mAP: 59.3%
+2025-05-10 17:33:10,024 PAT.test INFO: CMC curve, Rank-1  :77.2%
+2025-05-10 17:33:10,024 PAT.test INFO: CMC curve, Rank-5  :90.3%
+2025-05-10 17:33:10,024 PAT.test INFO: CMC curve, Rank-10 :94.2%
+2025-05-10 17:33:10,024 PAT.test INFO: total inference time: 7.97
+2025-05-10 17:33:10,027 PAT.train INFO: =====best epoch: 35=====
+2025-05-10 17:33:14,802 PAT.train INFO: Epoch 36 done. Time per batch: 0.260[s] Speed: 246.3[samples/s]
+2025-05-10 17:33:14,802 PAT.test INFO: Enter inferencing
+2025-05-10 17:33:22,849 PAT.test INFO: Validation Results 
+2025-05-10 17:33:22,850 PAT.test INFO: mAP: 60.7%
+2025-05-10 17:33:22,850 PAT.test INFO: CMC curve, Rank-1  :77.6%
+2025-05-10 17:33:22,850 PAT.test INFO: CMC curve, Rank-5  :91.0%
+2025-05-10 17:33:22,850 PAT.test INFO: CMC curve, Rank-10 :94.6%
+2025-05-10 17:33:22,850 PAT.test INFO: total inference time: 8.05
+2025-05-10 17:33:27,512 PAT.train INFO: Epoch 37 done. Time per batch: 0.269[s] Speed: 237.9[samples/s]
+2025-05-10 17:33:27,512 PAT.test INFO: Enter inferencing
+2025-05-10 17:33:36,080 PAT.test INFO: Validation Results 
+2025-05-10 17:33:36,080 PAT.test INFO: mAP: 61.9%
+2025-05-10 17:33:36,081 PAT.test INFO: CMC curve, Rank-1  :78.5%
+2025-05-10 17:33:36,081 PAT.test INFO: CMC curve, Rank-5  :91.5%
+2025-05-10 17:33:36,081 PAT.test INFO: CMC curve, Rank-10 :95.2%
+2025-05-10 17:33:36,081 PAT.test INFO: total inference time: 8.57
+2025-05-10 17:33:40,578 PAT.train INFO: Epoch 38 done. Time per batch: 0.259[s] Speed: 246.7[samples/s]
+2025-05-10 17:33:40,578 PAT.test INFO: Enter inferencing
+2025-05-10 17:33:48,616 PAT.test INFO: Validation Results 
+2025-05-10 17:33:48,617 PAT.test INFO: mAP: 62.8%
+2025-05-10 17:33:48,617 PAT.test INFO: CMC curve, Rank-1  :79.2%
+2025-05-10 17:33:48,617 PAT.test INFO: CMC curve, Rank-5  :91.9%
+2025-05-10 17:33:48,617 PAT.test INFO: CMC curve, Rank-10 :95.1%
+2025-05-10 17:33:48,617 PAT.test INFO: total inference time: 8.04
+2025-05-10 17:33:53,093 PAT.train INFO: Epoch 39 done. Time per batch: 0.258[s] Speed: 248.0[samples/s]
+2025-05-10 17:33:53,093 PAT.test INFO: Enter inferencing
+2025-05-10 17:34:01,207 PAT.test INFO: Validation Results 
+2025-05-10 17:34:01,207 PAT.test INFO: mAP: 63.7%
+2025-05-10 17:34:01,207 PAT.test INFO: CMC curve, Rank-1  :79.4%
+2025-05-10 17:34:01,207 PAT.test INFO: CMC curve, Rank-5  :91.5%
+2025-05-10 17:34:01,208 PAT.test INFO: CMC curve, Rank-10 :95.4%
+2025-05-10 17:34:01,208 PAT.test INFO: total inference time: 8.11
+2025-05-10 17:34:05,969 PAT.train INFO: Epoch 40 done. Time per batch: 0.275[s] Speed: 233.0[samples/s]
+2025-05-10 17:34:05,969 PAT.test INFO: Enter inferencing
+2025-05-10 17:34:14,037 PAT.test INFO: Validation Results 
+2025-05-10 17:34:14,037 PAT.test INFO: mAP: 64.2%
+2025-05-10 17:34:14,037 PAT.test INFO: CMC curve, Rank-1  :78.9%
+2025-05-10 17:34:14,037 PAT.test INFO: CMC curve, Rank-5  :92.3%
+2025-05-10 17:34:14,037 PAT.test INFO: CMC curve, Rank-10 :95.3%
+2025-05-10 17:34:14,037 PAT.test INFO: total inference time: 8.06
+2025-05-10 17:34:14,040 PAT.train INFO: =====best epoch: 40=====
+2025-05-10 17:34:18,885 PAT.train INFO: Epoch 41 done. Time per batch: 0.264[s] Speed: 242.0[samples/s]
+2025-05-10 17:34:18,885 PAT.test INFO: Enter inferencing
+2025-05-10 17:34:26,973 PAT.test INFO: Validation Results 
+2025-05-10 17:34:26,974 PAT.test INFO: mAP: 65.4%
+2025-05-10 17:34:26,974 PAT.test INFO: CMC curve, Rank-1  :80.4%
+2025-05-10 17:34:26,974 PAT.test INFO: CMC curve, Rank-5  :93.2%
+2025-05-10 17:34:26,974 PAT.test INFO: CMC curve, Rank-10 :96.0%
+2025-05-10 17:34:26,974 PAT.test INFO: total inference time: 8.09
+2025-05-10 17:34:31,552 PAT.train INFO: Epoch 42 done. Time per batch: 0.264[s] Speed: 242.3[samples/s]
+2025-05-10 17:34:31,552 PAT.test INFO: Enter inferencing
+2025-05-10 17:34:39,779 PAT.test INFO: Validation Results 
+2025-05-10 17:34:39,779 PAT.test INFO: mAP: 66.2%
+2025-05-10 17:34:39,779 PAT.test INFO: CMC curve, Rank-1  :80.5%
+2025-05-10 17:34:39,779 PAT.test INFO: CMC curve, Rank-5  :93.2%
+2025-05-10 17:34:39,780 PAT.test INFO: CMC curve, Rank-10 :96.2%
+2025-05-10 17:34:39,780 PAT.test INFO: total inference time: 8.23
+2025-05-10 17:34:44,419 PAT.train INFO: Epoch 43 done. Time per batch: 0.268[s] Speed: 239.1[samples/s]
+2025-05-10 17:34:44,420 PAT.test INFO: Enter inferencing
+2025-05-10 17:34:52,690 PAT.test INFO: Validation Results 
+2025-05-10 17:34:52,690 PAT.test INFO: mAP: 67.6%
+2025-05-10 17:34:52,690 PAT.test INFO: CMC curve, Rank-1  :81.5%
+2025-05-10 17:34:52,690 PAT.test INFO: CMC curve, Rank-5  :93.5%
+2025-05-10 17:34:52,690 PAT.test INFO: CMC curve, Rank-10 :96.2%
+2025-05-10 17:34:52,690 PAT.test INFO: total inference time: 8.27
+2025-05-10 17:34:57,365 PAT.train INFO: Epoch 44 done. Time per batch: 0.270[s] Speed: 237.2[samples/s]
+2025-05-10 17:34:57,365 PAT.test INFO: Enter inferencing
+2025-05-10 17:35:05,524 PAT.test INFO: Validation Results 
+2025-05-10 17:35:05,524 PAT.test INFO: mAP: 68.4%
+2025-05-10 17:35:05,524 PAT.test INFO: CMC curve, Rank-1  :81.3%
+2025-05-10 17:35:05,524 PAT.test INFO: CMC curve, Rank-5  :93.7%
+2025-05-10 17:35:05,524 PAT.test INFO: CMC curve, Rank-10 :96.7%
+2025-05-10 17:35:05,524 PAT.test INFO: total inference time: 8.16
+2025-05-10 17:35:10,127 PAT.train INFO: Epoch 45 done. Time per batch: 0.265[s] Speed: 241.1[samples/s]
+2025-05-10 17:35:10,127 PAT.test INFO: Enter inferencing
+2025-05-10 17:35:18,132 PAT.test INFO: Validation Results 
+2025-05-10 17:35:18,132 PAT.test INFO: mAP: 68.9%
+2025-05-10 17:35:18,132 PAT.test INFO: CMC curve, Rank-1  :81.9%
+2025-05-10 17:35:18,132 PAT.test INFO: CMC curve, Rank-5  :93.6%
+2025-05-10 17:35:18,132 PAT.test INFO: CMC curve, Rank-10 :96.6%
+2025-05-10 17:35:18,132 PAT.test INFO: total inference time: 8.00
+2025-05-10 17:35:18,135 PAT.train INFO: =====best epoch: 45=====
+2025-05-10 17:35:22,893 PAT.train INFO: Epoch 46 done. Time per batch: 0.259[s] Speed: 247.1[samples/s]
+2025-05-10 17:35:22,893 PAT.test INFO: Enter inferencing
+2025-05-10 17:35:30,916 PAT.test INFO: Validation Results 
+2025-05-10 17:35:30,917 PAT.test INFO: mAP: 69.9%
+2025-05-10 17:35:30,917 PAT.test INFO: CMC curve, Rank-1  :82.7%
+2025-05-10 17:35:30,917 PAT.test INFO: CMC curve, Rank-5  :94.1%
+2025-05-10 17:35:30,917 PAT.test INFO: CMC curve, Rank-10 :96.5%
+2025-05-10 17:35:30,917 PAT.test INFO: total inference time: 8.02
+2025-05-10 17:35:35,585 PAT.train INFO: Epoch 47 done. Time per batch: 0.269[s] Speed: 237.8[samples/s]
+2025-05-10 17:35:35,585 PAT.test INFO: Enter inferencing
+2025-05-10 17:35:43,735 PAT.test INFO: Validation Results 
+2025-05-10 17:35:43,735 PAT.test INFO: mAP: 70.7%
+2025-05-10 17:35:43,735 PAT.test INFO: CMC curve, Rank-1  :82.7%
+2025-05-10 17:35:43,735 PAT.test INFO: CMC curve, Rank-5  :94.5%
+2025-05-10 17:35:43,735 PAT.test INFO: CMC curve, Rank-10 :96.8%
+2025-05-10 17:35:43,735 PAT.test INFO: total inference time: 8.15
+2025-05-10 17:35:48,331 PAT.train INFO: Epoch 48 done. Time per batch: 0.265[s] Speed: 241.4[samples/s]
+2025-05-10 17:35:48,331 PAT.test INFO: Enter inferencing
+2025-05-10 17:35:56,432 PAT.test INFO: Validation Results 
+2025-05-10 17:35:56,432 PAT.test INFO: mAP: 71.2%
+2025-05-10 17:35:56,432 PAT.test INFO: CMC curve, Rank-1  :82.8%
+2025-05-10 17:35:56,432 PAT.test INFO: CMC curve, Rank-5  :94.3%
+2025-05-10 17:35:56,432 PAT.test INFO: CMC curve, Rank-10 :97.0%
+2025-05-10 17:35:56,432 PAT.test INFO: total inference time: 8.10
+2025-05-10 17:36:01,122 PAT.train INFO: Epoch 49 done. Time per batch: 0.271[s] Speed: 236.3[samples/s]
+2025-05-10 17:36:01,122 PAT.test INFO: Enter inferencing
+2025-05-10 17:36:09,328 PAT.test INFO: Validation Results 
+2025-05-10 17:36:09,328 PAT.test INFO: mAP: 72.6%
+2025-05-10 17:36:09,328 PAT.test INFO: CMC curve, Rank-1  :84.0%
+2025-05-10 17:36:09,328 PAT.test INFO: CMC curve, Rank-5  :94.7%
+2025-05-10 17:36:09,328 PAT.test INFO: CMC curve, Rank-10 :97.2%
+2025-05-10 17:36:09,328 PAT.test INFO: total inference time: 8.20
+2025-05-10 17:36:14,018 PAT.train INFO: Epoch 50 done. Time per batch: 0.271[s] Speed: 236.5[samples/s]
+2025-05-10 17:36:14,018 PAT.test INFO: Enter inferencing
+2025-05-10 17:36:22,209 PAT.test INFO: Validation Results 
+2025-05-10 17:36:22,209 PAT.test INFO: mAP: 73.4%
+2025-05-10 17:36:22,209 PAT.test INFO: CMC curve, Rank-1  :83.6%
+2025-05-10 17:36:22,209 PAT.test INFO: CMC curve, Rank-5  :95.0%
+2025-05-10 17:36:22,209 PAT.test INFO: CMC curve, Rank-10 :97.2%
+2025-05-10 17:36:22,209 PAT.test INFO: total inference time: 8.19
+2025-05-10 17:36:22,212 PAT.train INFO: =====best epoch: 50=====
+2025-05-10 17:36:27,193 PAT.train INFO: Epoch 51 done. Time per batch: 0.270[s] Speed: 236.6[samples/s]
+2025-05-10 17:36:27,193 PAT.test INFO: Enter inferencing
+2025-05-10 17:36:35,359 PAT.test INFO: Validation Results 
+2025-05-10 17:36:35,359 PAT.test INFO: mAP: 73.7%
+2025-05-10 17:36:35,359 PAT.test INFO: CMC curve, Rank-1  :84.7%
+2025-05-10 17:36:35,359 PAT.test INFO: CMC curve, Rank-5  :94.9%
+2025-05-10 17:36:35,359 PAT.test INFO: CMC curve, Rank-10 :97.7%
+2025-05-10 17:36:35,359 PAT.test INFO: total inference time: 8.16
+2025-05-10 17:36:40,073 PAT.train INFO: Epoch 52 done. Time per batch: 0.272[s] Speed: 235.4[samples/s]
+2025-05-10 17:36:40,073 PAT.test INFO: Enter inferencing
+2025-05-10 17:36:48,174 PAT.test INFO: Validation Results 
+2025-05-10 17:36:48,174 PAT.test INFO: mAP: 74.3%
+2025-05-10 17:36:48,174 PAT.test INFO: CMC curve, Rank-1  :84.4%
+2025-05-10 17:36:48,174 PAT.test INFO: CMC curve, Rank-5  :95.3%
+2025-05-10 17:36:48,174 PAT.test INFO: CMC curve, Rank-10 :97.7%
+2025-05-10 17:36:48,175 PAT.test INFO: total inference time: 8.10
+2025-05-10 17:36:52,830 PAT.train INFO: Epoch 53 done. Time per batch: 0.269[s] Speed: 238.3[samples/s]
+2025-05-10 17:36:52,830 PAT.test INFO: Enter inferencing
+2025-05-10 17:37:00,870 PAT.test INFO: Validation Results 
+2025-05-10 17:37:00,870 PAT.test INFO: mAP: 74.6%
+2025-05-10 17:37:00,870 PAT.test INFO: CMC curve, Rank-1  :84.7%
+2025-05-10 17:37:00,870 PAT.test INFO: CMC curve, Rank-5  :95.3%
+2025-05-10 17:37:00,870 PAT.test INFO: CMC curve, Rank-10 :97.4%
+2025-05-10 17:37:00,870 PAT.test INFO: total inference time: 8.04
+2025-05-10 17:37:05,524 PAT.train INFO: Epoch 54 done. Time per batch: 0.268[s] Speed: 238.4[samples/s]
+2025-05-10 17:37:05,524 PAT.test INFO: Enter inferencing
+2025-05-10 17:37:13,715 PAT.test INFO: Validation Results 
+2025-05-10 17:37:13,716 PAT.test INFO: mAP: 75.3%
+2025-05-10 17:37:13,716 PAT.test INFO: CMC curve, Rank-1  :84.9%
+2025-05-10 17:37:13,716 PAT.test INFO: CMC curve, Rank-5  :95.5%
+2025-05-10 17:37:13,716 PAT.test INFO: CMC curve, Rank-10 :97.6%
+2025-05-10 17:37:13,716 PAT.test INFO: total inference time: 8.19
+2025-05-10 17:37:18,300 PAT.train INFO: Epoch 55 done. Time per batch: 0.264[s] Speed: 242.0[samples/s]
+2025-05-10 17:37:18,301 PAT.test INFO: Enter inferencing
+2025-05-10 17:37:26,327 PAT.test INFO: Validation Results 
+2025-05-10 17:37:26,327 PAT.test INFO: mAP: 76.0%
+2025-05-10 17:37:26,327 PAT.test INFO: CMC curve, Rank-1  :85.6%
+2025-05-10 17:37:26,327 PAT.test INFO: CMC curve, Rank-5  :96.0%
+2025-05-10 17:37:26,327 PAT.test INFO: CMC curve, Rank-10 :97.7%
+2025-05-10 17:37:26,327 PAT.test INFO: total inference time: 8.02
+2025-05-10 17:37:26,330 PAT.train INFO: =====best epoch: 55=====
+2025-05-10 17:37:31,280 PAT.train INFO: Epoch 56 done. Time per batch: 0.269[s] Speed: 237.9[samples/s]
+2025-05-10 17:37:31,280 PAT.test INFO: Enter inferencing
+2025-05-10 17:37:39,478 PAT.test INFO: Validation Results 
+2025-05-10 17:37:39,478 PAT.test INFO: mAP: 76.3%
+2025-05-10 17:37:39,478 PAT.test INFO: CMC curve, Rank-1  :85.5%
+2025-05-10 17:37:39,478 PAT.test INFO: CMC curve, Rank-5  :95.9%
+2025-05-10 17:37:39,478 PAT.test INFO: CMC curve, Rank-10 :97.6%
+2025-05-10 17:37:39,478 PAT.test INFO: total inference time: 8.20
+2025-05-10 17:37:44,246 PAT.train INFO: Epoch 57 done. Time per batch: 0.260[s] Speed: 246.3[samples/s]
+2025-05-10 17:37:44,246 PAT.test INFO: Enter inferencing
+2025-05-10 17:37:52,552 PAT.test INFO: Validation Results 
+2025-05-10 17:37:52,552 PAT.test INFO: mAP: 77.3%
+2025-05-10 17:37:52,552 PAT.test INFO: CMC curve, Rank-1  :85.8%
+2025-05-10 17:37:52,552 PAT.test INFO: CMC curve, Rank-5  :95.9%
+2025-05-10 17:37:52,552 PAT.test INFO: CMC curve, Rank-10 :98.0%
+2025-05-10 17:37:52,552 PAT.test INFO: total inference time: 8.30
+2025-05-10 17:37:57,238 PAT.train INFO: Epoch 58 done. Time per batch: 0.271[s] Speed: 236.5[samples/s]
+2025-05-10 17:37:57,238 PAT.test INFO: Enter inferencing
+2025-05-10 17:38:05,301 PAT.test INFO: Validation Results 
+2025-05-10 17:38:05,301 PAT.test INFO: mAP: 77.7%
+2025-05-10 17:38:05,301 PAT.test INFO: CMC curve, Rank-1  :86.1%
+2025-05-10 17:38:05,301 PAT.test INFO: CMC curve, Rank-5  :96.2%
+2025-05-10 17:38:05,301 PAT.test INFO: CMC curve, Rank-10 :98.2%
+2025-05-10 17:38:05,301 PAT.test INFO: total inference time: 8.06
+2025-05-10 17:38:09,883 PAT.train INFO: Epoch 59 done. Time per batch: 0.264[s] Speed: 242.0[samples/s]
+2025-05-10 17:38:09,883 PAT.test INFO: Enter inferencing
+2025-05-10 17:38:18,026 PAT.test INFO: Validation Results 
+2025-05-10 17:38:18,026 PAT.test INFO: mAP: 78.2%
+2025-05-10 17:38:18,026 PAT.test INFO: CMC curve, Rank-1  :86.8%
+2025-05-10 17:38:18,026 PAT.test INFO: CMC curve, Rank-5  :96.2%
+2025-05-10 17:38:18,026 PAT.test INFO: CMC curve, Rank-10 :98.3%
+2025-05-10 17:38:18,026 PAT.test INFO: total inference time: 8.14
+2025-05-10 17:38:22,915 PAT.train INFO: Epoch 60 done. Time per batch: 0.267[s] Speed: 239.9[samples/s]
+2025-05-10 17:38:22,915 PAT.test INFO: Enter inferencing
+2025-05-10 17:38:31,027 PAT.test INFO: Validation Results 
+2025-05-10 17:38:31,027 PAT.test INFO: mAP: 78.7%
+2025-05-10 17:38:31,027 PAT.test INFO: CMC curve, Rank-1  :86.9%
+2025-05-10 17:38:31,027 PAT.test INFO: CMC curve, Rank-5  :96.5%
+2025-05-10 17:38:31,027 PAT.test INFO: CMC curve, Rank-10 :98.4%
+2025-05-10 17:38:31,027 PAT.test INFO: total inference time: 8.11
+2025-05-10 17:38:31,030 PAT.train INFO: =====best epoch: 60=====
+2025-05-10 17:38:32,576 PAT.train INFO: Number of parameter: 86.52M
+2025-05-10 17:38:32,836 PAT INFO: => Loaded UAM
+2025-05-10 17:38:32,836 PAT INFO:   ----------------------------------------
+2025-05-10 17:38:32,836 PAT INFO:   subset   | # ids | # images | # cameras
+2025-05-10 17:38:32,836 PAT INFO:   ----------------------------------------
+2025-05-10 17:38:32,836 PAT INFO:   query    |    99 |     1329 |         4
+2025-05-10 17:38:32,836 PAT INFO:   gallery  |    99 |     1329 |         4
+2025-05-10 17:38:32,836 PAT INFO:   ----------------------------------------
+2025-05-10 17:38:32,836 PAT.test INFO: Enter inferencing
+2025-05-10 17:38:41,074 PAT.test INFO: Validation Results 
+2025-05-10 17:38:41,074 PAT.test INFO: mAP: 78.6%
+2025-05-10 17:38:41,074 PAT.test INFO: CMC curve, Rank-1  :87.3%
+2025-05-10 17:38:41,074 PAT.test INFO: CMC curve, Rank-5  :96.2%
+2025-05-10 17:38:41,074 PAT.test INFO: CMC curve, Rank-10 :98.1%
+2025-05-10 17:38:41,074 PAT.test INFO: total inference time: 8.17

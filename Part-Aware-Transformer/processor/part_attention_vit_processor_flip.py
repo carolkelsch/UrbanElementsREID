@@ -96,10 +96,12 @@ def part_attention_vit_do_train_with_amp(cfg,
             t_domains = t_domains.to(device)
 
             model.to(device)
+
+            image_loss = 0 # reset image loss to include image not flipped and flipped losses
             with amp.autocast(enabled=True):
                 score, layerwise_global_feat, layerwise_feat_list = model(img)
                 
-                ############## patch learning ######################
+                ############## patch learning for image not flipped ######################
                 patch_agent, position = patch_centers.get_soft_label(img_path, layerwise_feat_list[-1], vid=vid, camid=camid)
                 l_ploss = cfg.MODEL.PC_LR
                 if cfg.MODEL.PC_LOSS:
@@ -118,8 +120,35 @@ def part_attention_vit_do_train_with_amp(cfg,
                     ploss = torch.tensor([0.]).cuda()
                     reid_loss = loss_fn(score, layerwise_global_feat[-1], target, soft_label=cfg.MODEL.SOFT_LABEL)
                 
-                total_loss = reid_loss + l_ploss*ploss
+                image_loss = reid_loss + l_ploss*ploss
 
+                ############## patch learning for flipped image ######################
+
+                img_flip = torch.flip(img, dims=[3])  # Horizontal flip
+
+                score, layerwise_global_feat, layerwise_feat_list = model(img_flip)             
+                
+                patch_agent, position = patch_centers.get_soft_label(img_path, layerwise_feat_list[-1], vid=vid, camid=camid)
+                l_ploss = cfg.MODEL.PC_LR
+                if cfg.MODEL.PC_LOSS:
+                    feat = torch.stack(layerwise_feat_list[-1], dim=0)
+                    feat = feat[:,::1,:]
+                    '''
+                    loss1: clustering loss(for patch centers)
+                    '''
+                    ploss, all_posvid = pc_criterion(feat, patch_agent, position, patch_centers, vid=target, camid=target_cam)
+                    '''
+                    loss2: reid-specific loss
+                    (ID + Triplet loss)
+                    '''
+                    reid_loss = loss_fn(score, layerwise_global_feat[-1], target, all_posvid=all_posvid, soft_label=cfg.MODEL.SOFT_LABEL, soft_weight=cfg.MODEL.SOFT_WEIGHT, soft_lambda=cfg.MODEL.SOFT_LAMBDA)
+                else:
+                    ploss = torch.tensor([0.]).cuda()
+                    reid_loss = loss_fn(score, layerwise_global_feat[-1], target, soft_label=cfg.MODEL.SOFT_LABEL)
+                
+                image_loss = reid_loss + l_ploss*ploss
+            
+            total_loss = image_loss / 2 # average over the loss of the image not flipped and flipped
             scaler.scale(total_loss).backward()
 
             scaler.step(optimizer)

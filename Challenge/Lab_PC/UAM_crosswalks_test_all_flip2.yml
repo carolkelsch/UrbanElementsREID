@@ -27,7 +27,7 @@ DATASETS:
   TRAIN: ('UAM',)
   TEST: ('UAM_test',)
   #ROOT_DIR: ('../../data') # root of datasets
-  ROOT_DIR: '/media/DiscoLocal/IPCV/Carolina/ICIP_UrbAM-ReID/splits/Containers/containers'
+  ROOT_DIR: '/media/DiscoLocal/IPCV/Carolina/UrbAM-ReID_classes/crosswalks/'
 
 DATALOADER:
   SAMPLER: 'softmax_triplet'
@@ -53,10 +53,10 @@ TEST:
   EVAL: True
   IMS_PER_BATCH: 128
   RE_RANKING: False
-  WEIGHT: "/media/DiscoLocal/IPCV/Carolina/UAM/part_attention_vit_60.pth" #test 
+  WEIGHT: "/media/DiscoLocal/IPCV/Carolina/UrbanElementsREID/Challenge/Lab_PC/LogsCrosswalksFlip2/UAM/part_attention_vit_60.pth" #test 
   NECK_FEAT: 'before'
   FEAT_NORM: True
 
-LOG_ROOT: '/media/DiscoLocal/IPCV/Carolina/UrbanElementsREID/Challenge/Lab_PC/Logs/' # root of log file
-TB_LOG_ROOT: '/media/DiscoLocal/IPCV/Carolina/UrbanElementsREID/Challenge/Lab_PC/Logs/tb_log/'
+LOG_ROOT: '/media/DiscoLocal/IPCV/Carolina/UrbanElementsREID/Challenge/Lab_PC/LogsCrosswalksFlip2/' # root of log file
+TB_LOG_ROOT: '/media/DiscoLocal/IPCV/Carolina/UrbanElementsREID/Challenge/Lab_PC/LogsCrosswalksFlip2/tb_log/'
 LOG_NAME: 'UAM'

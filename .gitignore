@@ -174,7 +174,7 @@ cython_debug/
 .pypirc
 
 # output files
-Challenge/Logs/
+**/tb_logs/
 
 # kaggle dataset folder
 UrbAM-ReID/Data/Kaggle/
